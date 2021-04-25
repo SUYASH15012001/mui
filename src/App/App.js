@@ -2,9 +2,8 @@ import React from 'react'
 import './App.css';
 import SideMenu from '../Components/SideMenu'
 import Header from '../Components/Header'
-import PageHeader from '../Components/PageHeader'; 
+import Employees from '../pages/Employees/Employees';
 import {makeStyles, CssBaseline, createMuiTheme, ThemeProvider} from '@material-ui/core'
-import GroupIcon from '@material-ui/icons/Group';
 
 const theme = createMuiTheme({
   palette:{
@@ -39,11 +38,7 @@ function App() {
       <SideMenu/>
       <div className={classes.appMain}>
         <Header/>
-        <PageHeader 
-          title='Page Header'
-          subtitle='Page Description'
-          icon={<GroupIcon fontSize='large'/>}
-        />
+        <Employees/>
       </div>
       <CssBaseline/>
     </ThemeProvider>
