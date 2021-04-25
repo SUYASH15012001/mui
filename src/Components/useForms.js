@@ -4,7 +4,7 @@ import {makeStyles} from '@material-ui/core';
 export function useForms(initialValues) {
 
     const [values, setvalues] = useState(initialValues)
-    const handleInputChnage = (e) => {
+    const handleInputChange = (e) => {
         const {name, value}  = e.target;
         setvalues({
             ...values,
@@ -15,7 +15,7 @@ export function useForms(initialValues) {
     return {
         values,
         setvalues,
-        handleInputChnage
+        handleInputChange
     }
 }
 
