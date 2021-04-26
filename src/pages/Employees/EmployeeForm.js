@@ -24,10 +24,29 @@ const genderItems = [
 
 function EmployeeForm() {
 
-    const {values, handleInputChange} = useForms(initialValues);
+
+    const {values, handleInputChange, setError, error} = useForms(initialValues);
+
+    const validate = () => {
+        let temp = {}
+        temp.fullName = values.fullName?"":"This field is required"
+        temp.email = (/$^|.+@.+..+/).test(values.email)?"":"Enter a valid email "
+        temp.mobile = values.mobile.length>9?"":"invalid Mobile no."
+        temp.departmentId = values.departmentId.lengt!==0?"":"This field is required"
+        setError({
+            ...temp
+        })
+        return Object.values(temp).every(x => x === "")
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (validate()) 
+            alert('booya')
+    }
 
     return (
-        <Form>
+        <Form onSubmit={handleSubmit}>
             <Grid container>
                 <Grid item xs={6}>
                     <Controls.Input
@@ -35,24 +54,28 @@ function EmployeeForm() {
                         label="Full Name"
                         value={values.fullName}
                         onChange={handleInputChange}
+                        error={error.fullName}
                     />
                     <Controls.Input
                         label="Email"
                         name="email"
                         value={values.email}
                         onChange={handleInputChange}
+                        error={error.email}
                     />
                     <Controls.Input
                         name="mobile"
                         label="Mobile"
                         value={values.mobile}
                         onChange={handleInputChange}
+                        error={error.mobile}
                     />
                     <Controls.Input
                         label="City"
                         name="city"
                         value={values.city}
                         onChange={handleInputChange}
+                        error={error.city}
                     />
                 </Grid>
                 <Grid item xs={6}>
