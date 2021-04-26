@@ -24,7 +24,7 @@ const genderItems = [
 
 function EmployeeForm() {
 
-    const {values,setvalues, handleInputChange} = useForms(initialValues);
+    const {values, handleInputChange} = useForms(initialValues);
 
     return (
         <Form>
@@ -45,13 +45,13 @@ function EmployeeForm() {
                     <Controls.Input
                         name="mobile"
                         label="Mobile"
-                        value={values.fullName}
+                        value={values.mobile}
                         onChange={handleInputChange}
                     />
                     <Controls.Input
                         label="City"
                         name="city"
-                        value={values.email}
+                        value={values.city}
                         onChange={handleInputChange}
                     />
                 </Grid>
@@ -93,6 +93,7 @@ function EmployeeForm() {
                         <Controls.Button
                             text='Reset'
                             color="default"
+                            type="reset"
                         />
                     </div>
                 </Grid>
