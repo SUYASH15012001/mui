@@ -24,25 +24,27 @@ const genderItems = [
 
 function EmployeeForm() {
 
+    const validate = (fieldvalues = values) => {
+        let temp = {...error}
+        if('fullName' in fieldvalues) temp.fullName = fieldvalues.fullName?"":"This field is required"
 
-    const {values, handleInputChange, setError, error} = useForms(initialValues);
-
-    const validate = () => {
-        let temp = {}
-        temp.fullName = values.fullName?"":"This field is required"
-        temp.email = (/$^|.+@.+..+/).test(values.email)?"":"Enter a valid email "
-        temp.mobile = values.mobile.length>9?"":"invalid Mobile no."
-        temp.departmentId = values.departmentId.lengt!==0?"":"This field is required"
+        if('email' in fieldvalues) temp.email = (/$^|.+@.+..+/).test(fieldvalues.email)?"":"Enter a valid email "
+        if('mobile' in fieldvalues) temp.mobile = fieldvalues.mobile.length>9?"":"invalid Mobile no."
+        if('departmentId' in fieldvalues) temp.departmentId = fieldvalues.departmentId.length!==0?"":"This field is required"
         setError({
             ...temp
         })
-        return Object.values(temp).every(x => x === "")
+
+        if(fieldvalues===values) return Object.values(temp).every(x => x === "")
     }
+
+
+    const {values, handleInputChange, setError, error, resetForm} = useForms(initialValues, true, validate);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (validate()) 
-            alert('booya')
+            employeeService.insertEmployee(values);
     }
 
     return (
@@ -92,6 +94,7 @@ function EmployeeForm() {
                         value={values.departmentId}
                         onChange={handleInputChange}
                         options={employeeService.getDepartmentCollection()}
+                        error={error.departmentId} 
                     />
                     <Controls.DatePicker
                         name="hireDate"
@@ -117,6 +120,7 @@ function EmployeeForm() {
                             text='Reset'
                             color="default"
                             type="reset"
+                            onClick={resetForm}
                         />
                     </div>
                 </Grid>
